@@ -8,12 +8,18 @@
 
 #import "AppDelegate.h"
 
+#import "Flurry.h"
+
 #import "ViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+    [Flurry startSession:@"NCPK87RPVM67GX25M9PX"];
+    [Flurry setCrashReportingEnabled:YES];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
