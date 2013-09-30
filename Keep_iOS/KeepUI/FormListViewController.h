@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DHQDViewController.h"
 #import "KeepServer.h"
-#import "DHSurveyViewController.h"
 
-@interface FormListViewController : UITableViewController <DHDQViewDelegate,DHSurveyDelegate>
+@interface FormListViewController : UITableViewController
 
 @property (nonatomic, strong) KeepServer * server;
 

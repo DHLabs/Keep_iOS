@@ -8,23 +8,33 @@
 
 #import "NewFormServerController.h"
 
-#import "AFXMLRequestOperation.h"
+#import "AFNetworking.h"
 #import "DataManager.h"
 #import "XMLReader.h"
-#import "ODKForm.h"
+#import "KeepForm.h"
 #import "SVProgressHUD.h"
 #import "BlockAlertView.h"
 
 #define defaultServer @"http://keep.distributedhealth.org/bs/sean"//@"http://formhub.org/spatno"
 //@"http://odk.distributedhealth.org/bs/sean"
 
+@interface NewFormServerController ()
+{
+    UITextField *serverNameField;
+    UITextField *serverURLField;
+}
+
++ (BOOL) validateUrl: (NSString *) candidate;
+
+@end
+
 @implementation NewFormServerController
 
--(void) submitServer:(QElement*)element
+-(void) submitServer
 {
     //Validate fields
 
-    NSString * serverName = ((QEntryElement*)[self.root elementWithKey:@"serverName"]).textValue;
+    NSString * serverName = serverNameField.text;
     if( (!serverName) || [serverName isEqualToString:@""] || [[serverName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""] ) {
 
         [NewFormServerController showMessageOnlyAlert:@"Please write in a server name"];
@@ -32,25 +42,23 @@
 
     }
 
-    ODKServer *server = [[ODKServer alloc] init];
+    KeepServer *server = [[KeepServer alloc] init];
 
-    QEntryElement * elem = (QEntryElement*)[self.root elementWithKey:@"serverURL"];
-    
-    NSString * serverURL = [NSString stringWithFormat:@"%@/formList", elem.textValue];
+    NSString * serverURL = [NSString stringWithFormat:@"%@/formList", serverURLField.text];
     NSString * otherServerURL;
 
-    if( [elem.title isEqualToString:@"Keep Account"] ) {
-        otherServerURL = [@"http://keep.distributedhealth.org/bs/" stringByAppendingString:elem.textValue];
+    if( self.serverType == KeepServerType) {
+        otherServerURL = [@"http://keep.distributedhealth.org/bs/" stringByAppendingString:serverURLField.text];
         server.isKeep = YES;
         serverURL = [@"http://keep.distributedhealth.org/bs/" stringByAppendingString:serverURL];
-    } else if( [elem.title isEqualToString:@"Formhub Account"] ) {
-        otherServerURL = [@"https://formhub.org/" stringByAppendingString:elem.textValue];
+    } else if( self.serverType == FormHubServerType ) {
+        otherServerURL = [@"https://formhub.org/" stringByAppendingString:serverURLField.text];
         serverURL = [@"https://formhub.org/" stringByAppendingString:serverURL];
     } else {
-        otherServerURL = elem.textValue;
+        otherServerURL = serverURLField.text;
     }
 
-    for( ODKServer * theServer in [DataManager instance].servers  ) {
+    for( KeepServer * theServer in [DataManager instance].servers  ) {
         if( [theServer.name isEqualToString:serverName] ) {
             [NewFormServerController showMessageOnlyAlert:@"That server name is already taken."];
             return;
@@ -76,7 +84,7 @@
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     [[DataManager instance] addServer:server atIndex:-1 success:^() {
 
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
         [SVProgressHUD dismiss];
     } failure:^() {
 
@@ -113,7 +121,7 @@
 
 -(void) cancel
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) viewDidLoad
@@ -121,10 +129,8 @@
     [super viewDidLoad];
 
     self.title = @"New Server";
-}
 
-- (void)setQuickDialogTableView:(QuickDialogTableView *)aQuickDialogTableView {
-    [super setQuickDialogTableView:aQuickDialogTableView];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(submitServer)];
 
     NSString * imageName = @"backgroundshort.png";
     if( [UIScreen mainScreen].bounds.size.height > 600 ) {
@@ -140,52 +146,85 @@
     UIImage* image = [UIImage imageNamed:imageName];
     UIImageView * imageView = [[UIImageView alloc] initWithImage:image];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [imageView setFrame:self.quickDialogTableView.frame];
+    [imageView setFrame:self.view.frame];
 
-    self.quickDialogTableView.backgroundView = imageView;
-    self.quickDialogTableView.backgroundColor = [UIColor clearColor];//[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundiphone"]];
-    
+    self.tableView.backgroundView = imageView;
+    self.tableView.backgroundColor = [UIColor clearColor];//[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundiphone"]];
+
 }
 
-+(QRootElement*) getRootForType:(int)type
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    QRootElement * elem = [[QRootElement alloc] init];
-    elem.grouped = YES;
-    elem.title = @"New Server";
+    return 1;
+}
 
-    QSection * section = [[QSection alloc] init];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
 
-    QEntryElement * nameElement = [[QEntryElement alloc] initWithTitle:@"Name" Value:nil Placeholder:@"my server"];
-    nameElement.key = @"serverName";
-    [section addElement:nameElement];
 
-    QEntryElement * serverURLElement;
-    if( type == 1 ) {
-        serverURLElement = [[QEntryElement alloc] initWithTitle:@"Keep Account" Value:@"mikepreziosi" Placeholder:@"account"];
-        //serverURLElement.keyboardType = UIKeyboardTypeURL;
-        
-    } else if( type == 2 ) {
-        serverURLElement = [[QEntryElement alloc] initWithTitle:@"Formhub Account" Value:@"formhub_u" Placeholder:@"account"];
-        //serverURLElement.keyboardType = UIKeyboardTypeURL;
-    } else {
-        serverURLElement = [[QEntryElement alloc] initWithTitle:@"Server" Value:defaultServer Placeholder:@"http://example.com/exampleForms"];
-        
-        serverURLElement.keyboardType = UIKeyboardTypeURL;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:CellIdentifier];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 185, 30)];
+        textField.adjustsFontSizeToFitWidth = YES;
+        textField.textColor = [UIColor blackColor];
+        if ([indexPath row] == 0) {
+            textField.placeholder = @"My Server";
+            textField.keyboardType = UIKeyboardTypeDefault;
+            textField.returnKeyType = UIReturnKeyNext;
+            serverNameField = textField;
+        }
+        else {
+            textField.placeholder = @"test_user";
+            textField.keyboardType = UIKeyboardTypeDefault;
+            textField.returnKeyType = UIReturnKeyDone;
+            textField.secureTextEntry = YES;
+            serverURLField = textField;
+        }
+        textField.backgroundColor = [UIColor clearColor];
+        textField.autocorrectionType = UITextAutocorrectionTypeNo; // no auto correction support
+        textField.autocapitalizationType = UITextAutocapitalizationTypeNone; // no auto capitalization support
+        textField.textAlignment = NSTextAlignmentLeft;
+        textField.tag = 0;
+        //playerTextField.delegate = self;
+
+        [textField setEnabled: YES];
+
+        [cell addSubview:textField];
+
     }
-    serverURLElement.key = @"serverURL";
-    serverURLElement.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    serverURLElement.autocorrectionType = UITextAutocorrectionTypeNo;
-    [section addElement:serverURLElement];
 
-    //TODO: add username, password, 2auth fields in future
+    if ([indexPath row] == 0) {
+        cell.textLabel.text = @"Server Name";
+    }
+    else {
 
-    QButtonElement * addServerButton = [[QButtonElement alloc] initWithTitle:@"Add Server"];
-    addServerButton.controllerAction = @"submitServer:";
-    [section addElement:addServerButton];
+        switch (self.serverType) {
+            case KeepServerType:
+                cell.textLabel.text = @"";
+                break;
+            case FormHubServerType:
+                cell.textLabel.text = @"";
+                break;
+            default:
+                cell.textLabel.text = @"";
+                break;
+        }
 
-    [elem addSection:section];
+    }
 
-    return elem;
+    return cell;
 }
 
 @end

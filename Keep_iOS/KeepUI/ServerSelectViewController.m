@@ -121,7 +121,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NewFormServerController * newController = [[NewFormServerController alloc] initWithRoot:[NewFormServerController getRootForType:(indexPath.row+1)]];
+    NewFormServerController * newController = [[NewFormServerController alloc] initWithStyle:UITableViewStylePlain];
+
+    if( indexPath.row == 0 ) {
+        newController.serverType = KeepServerType;
+    } else if( indexPath.row == 1) {
+        newController.serverType = FormHubServerType;
+    } else {
+        newController.serverType = CustomServerType;
+    }
 
     [self.navigationController pushViewController:newController animated:YES];
 }

@@ -349,6 +349,20 @@
 		14A0A53517FA0FAD00403110 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				14A0A54517FA164000403110 /* DHCalcUtilities.h */,
+				14A0A54617FA164000403110 /* DHCalcUtilities.m */,
+				14A0A54717FA164000403110 /* DHFormUtilities.h */,
+				14A0A54817FA164000403110 /* DHFormUtilities.m */,
+				14A0A54917FA164000403110 /* DHMiscUtilities.h */,
+				14A0A54A17FA164000403110 /* DHMiscUtilities.m */,
+				14A0A54B17FA164000403110 /* DHNetworkUtilities.h */,
+				14A0A54C17FA164000403110 /* DHNetworkUtilities.m */,
+				14A0A54D17FA164000403110 /* FormDownloader.h */,
+				14A0A54E17FA164000403110 /* FormDownloader.m */,
+				14A0A54F17FA164000403110 /* XFormJSONConverter.h */,
+				14A0A55017FA164000403110 /* XFormJSONConverter.m */,
+				14A0A55117FA164100403110 /* XPathQuery.h */,
+				14A0A55217FA164100403110 /* XPathQuery.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -535,20 +549,6 @@
 		14BC578B17B071D7009DB36A /* Keep_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				14A0A54517FA164000403110 /* DHCalcUtilities.h */,
-				14A0A54617FA164000403110 /* DHCalcUtilities.m */,
-				14A0A54717FA164000403110 /* DHFormUtilities.h */,
-				14A0A54817FA164000403110 /* DHFormUtilities.m */,
-				14A0A54917FA164000403110 /* DHMiscUtilities.h */,
-				14A0A54A17FA164000403110 /* DHMiscUtilities.m */,
-				14A0A54B17FA164000403110 /* DHNetworkUtilities.h */,
-				14A0A54C17FA164000403110 /* DHNetworkUtilities.m */,
-				14A0A54D17FA164000403110 /* FormDownloader.h */,
-				14A0A54E17FA164000403110 /* FormDownloader.m */,
-				14A0A54F17FA164000403110 /* XFormJSONConverter.h */,
-				14A0A55017FA164000403110 /* XFormJSONConverter.m */,
-				14A0A55117FA164100403110 /* XPathQuery.h */,
-				14A0A55217FA164100403110 /* XPathQuery.m */,
 				14A0A53517FA0FAD00403110 /* Utilities */,
 				14A0A53417FA0F9E00403110 /* KeepUI */,
 				14A0A53317FA0F8800403110 /* Survey */,

@@ -9,8 +9,6 @@
 #import "FormListViewController.h"
 
 #import "KeepForm.h"
-#import "AFHTTPRequestOperation.h"
-#import "XMLReader.h"
 #import "DHFormUtilities.h"
 #import "SVProgressHUD.h"
 #import "FormDataTableViewController.h"
@@ -20,7 +18,7 @@
 
 #import "SavedFormsViewController.h"
 
-@interface FormListViewController () 
+@interface FormListViewController () //<DHSurveyDelegate>
 -(void) showData: (UIControl *) button withEvent: (UIEvent *) event;
 
 @end
@@ -47,8 +45,6 @@
     } else {
         self.view.backgroundColor = [UIColor whiteColor];
     }
-
-
 
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc]
                                         init];
