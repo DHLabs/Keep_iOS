@@ -11,7 +11,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "SVProgressHUD.h"
 #import "XMLReader.h"
-#import "DHSurveyViewController.h"
+//#import "DHSurveyViewController.h"
 #import "XFormJSONConverter.h"
 #import "FormDownloader.h"
 
@@ -61,14 +61,14 @@
         //DHQDViewController * formController = [[DHQDViewController alloc] initWithODKForm:form];
         //formController.formDelegate = self;
 
-        DHSurveyViewController * formController = [[DHSurveyViewController alloc] init];
+        /*DHSurveyViewController * formController = [[DHSurveyViewController alloc] init];
 
         NSLog(@"form json: %@", [XFormJSONConverter JSONFormFromXMLPath:[form.formPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.xml", form.formID]]]);
 
         formController.form = form;
         formController.storedForm = storedForm;
 
-        [controller.navigationController pushViewController:formController animated:YES];
+        [controller.navigationController pushViewController:formController animated:YES];*/
     }
     @catch (NSException *exception) {
 

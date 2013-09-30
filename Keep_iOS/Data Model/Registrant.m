@@ -9,7 +9,7 @@
 #import "Registrant.h"
 
 #import "KeepForm.h"
-#import "AFJSONRequestOperation.h"
+#import "AFNetworking.h"
 
 @implementation Registrant
 
@@ -57,14 +57,14 @@
             downloadUrl = [downloadUrl stringByAppendingString:[self.registrantData objectForKey:@"Barcode1"]];
         }
 
-        NSURL *url = [NSURL URLWithString:downloadUrl];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
 
-        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
 
+        [manager GET:downloadUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSMutableArray * retrievedData = [[NSMutableArray alloc] init];
 
-            NSArray * jsonData = [JSON objectForKey:@"data"];
+            NSArray * jsonData = [responseObject objectForKey:@"data"];
             for( NSDictionary * dict in jsonData ) {
                 NSDictionary * data = [dict objectForKey:@"data"];
                 if( [[data objectForKey:@"Barcode1"] isEqualToString:[self.registrantData objectForKey:@"Barcode1"]] ) {
@@ -77,10 +77,8 @@
             if( numDownloads == 0 ) {
                 [completionBlock invoke];
             }
-            
-        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-            
-            NSLog(@"failure to download: %@, %@", response, error);
+        } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
+            NSLog(@"failure to download: %@, %@", operation.responseString, error);
             numDownloads--;
             if( numDownloads == 0 ) {
                 [completionBlock invoke];
@@ -89,7 +87,6 @@
 
         numDownloads++;
         
-        [operation start];
     }
 }
 

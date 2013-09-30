@@ -26,6 +26,6 @@
 -(void)loadDataFromFilesystem;
 - (NSString *)databasePath;
 -(KeepServer*) serverForName:(NSString *)serverName;
--(void) addServer:(ODKServer*) server atIndex:(NSInteger)index success:(void (^)(void)) success failure:(void (^)(void)) failure;
+-(void) addServer:(KeepServer*) server atIndex:(NSInteger)index success:(void (^)(void)) success failure:(void (^)(void)) failure;
 
 @end

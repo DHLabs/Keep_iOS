@@ -10,7 +10,7 @@
 
 #import "XMLReader.h"
 #import "KeepForm.h"
-#import "AFXMLRequestOperation.h"
+#import "AFNetworking.h"
 
 @implementation DataManager
 
@@ -120,7 +120,7 @@ static DataManager* theManager;
         id xforms = [xformsDict objectForKey:@"xform"];
 
         if( [xforms isKindOfClass:[NSDictionary class]] ) {
-            ODKForm * form = [[ODKForm alloc] init];
+            KeepForm * form = [[ODKForm alloc] init];
             form.description = [xforms objectForKey:@"descriptionText"];
             form.downloadURL = [xforms objectForKey:@"downloadUrl"];
             form.manifestURL = [xforms objectForKey:@"manifestUrl"];

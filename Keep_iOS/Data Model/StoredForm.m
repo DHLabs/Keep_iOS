@@ -17,7 +17,7 @@
 	{
         self.formData = [coder decodeObjectForKey:@"formData"];
         self.xform = [coder decodeObjectForKey:@"xform"];
-        self.isFinished = [coder decodeObjectForKey:@"isFinished"];
+        self.isFinished = [coder decodeBoolForKey:@"isFinished"];
 	}
 
     return self;

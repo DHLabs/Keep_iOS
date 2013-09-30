@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DHxFormTool.h"
-#import "ODKForm.h"
-#import "ODKServer.h"
+#import "KeepForm.h"
+#import "KeepServer.h"
 
 @interface DHFormUtilities : NSObject
 
@@ -25,9 +24,9 @@
 +(NSString*) createXMLFromAnswers:(NSDictionary*) answers andTool:(DHxFormTool*)tool;
 +(NSString*) constructXMLFromQuestions:(NSArray*)questions forAnswers:(NSDictionary*) answers;
 
-+(void) submitForm:(ODKForm*) xform withData:(NSDictionary*) xformData tool:(DHxFormTool*)tool completion:( void (^)() ) completion failure:(void (^)()) failure useProgress:(BOOL) useProgress;
++(void) submitForm:(KeepForm*) xform withData:(NSDictionary*) xformData tool:(DHxFormTool*)tool completion:( void (^)() ) completion failure:(void (^)()) failure useProgress:(BOOL) useProgress;
 
-+(void) sendStoredForms:(ODKServer*)server;
++(void) sendStoredForms:(KeepServer*)server;
 
 +(BOOL) isQuestionRelevant:(NSDictionary *)question forAnswers:(NSDictionary *)answers isGroup:(BOOL)isGroup tool:(DHxFormTool*)tool;
 +(NSString *) performXPath:(NSString*)xquery onAnswers:(NSDictionary*)answers withTool:(DHxFormTool*)tool;
