@@ -17,7 +17,7 @@
                BlueprintIdentifier = "14BC578117B071D7009DB36A"
                BuildableName = "Keep_iOS.app"
                BlueprintName = "Keep_iOS"
-               ReferencedContainer = "container:Keep_iOS.xcodeproj">
+               ReferencedContainer = "container:Keep.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "14BC578117B071D7009DB36A"
             BuildableName = "Keep_iOS.app"
             BlueprintName = "Keep_iOS"
-            ReferencedContainer = "container:Keep_iOS.xcodeproj">
+            ReferencedContainer = "container:Keep.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,7 +54,7 @@
             BlueprintIdentifier = "14BC578117B071D7009DB36A"
             BuildableName = "Keep_iOS.app"
             BlueprintName = "Keep_iOS"
-            ReferencedContainer = "container:Keep_iOS.xcodeproj">
+            ReferencedContainer = "container:Keep.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "14BC578117B071D7009DB36A"
             BuildableName = "Keep_iOS.app"
             BlueprintName = "Keep_iOS"
-            ReferencedContainer = "container:Keep_iOS.xcodeproj">
+            ReferencedContainer = "container:Keep.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

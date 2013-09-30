@@ -1,9 +1,9 @@
 //
 //  ViewController.m
-//  Keep_iOS
+//  Keep
 //
 //  Created by Sean Patno on 8/5/13.
-//  Copyright (c) 2013 Distributed Health Labs. All rights reserved.
+//  Copyright (c) 2013 Sean Patno. All rights reserved.
 //
 
 #import "ViewController.h"
