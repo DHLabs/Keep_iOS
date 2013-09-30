@@ -1,4 +1,4 @@
 Keep_iOS
 ========
 
-iOS App for xform collection and communication with Keep backend
+Note: currently not ready, in the process of adding and merging code
