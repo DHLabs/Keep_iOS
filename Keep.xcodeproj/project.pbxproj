@@ -76,6 +76,18 @@
 		14B48A9517FDF08100E67C6B /* backgroundipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B48A9217FDF08100E67C6B /* backgroundipad.png */; };
 		14B48A9617FDF08100E67C6B /* backgroundshort.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B48A9317FDF08100E67C6B /* backgroundshort.png */; };
 		14B48A9717FDF08100E67C6B /* backgroundtall.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B48A9417FDF08100E67C6B /* backgroundtall.png */; };
+		14B48A9C17FE1AC800E67C6B /* DHSurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48A9B17FE1AC800E67C6B /* DHSurveyViewController.m */; };
+		14B48AA317FE1AD400E67C6B /* DateInputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48A9E17FE1AD400E67C6B /* DateInputTableViewCell.m */; };
+		14B48AA417FE1AD400E67C6B /* DHSurveyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AA017FE1AD400E67C6B /* DHSurveyLabel.m */; };
+		14B48AA517FE1AD400E67C6B /* DHSurveyLabelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AA217FE1AD400E67C6B /* DHSurveyLabelController.m */; };
+		14B48AB417FE1ADC00E67C6B /* DHDateTimeQuestionControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AA717FE1ADC00E67C6B /* DHDateTimeQuestionControllerViewController.m */; };
+		14B48AB517FE1ADC00E67C6B /* DHGeopointQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AA917FE1ADC00E67C6B /* DHGeopointQuestionController.m */; };
+		14B48AB617FE1ADC00E67C6B /* DHMediaQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AAB17FE1ADC00E67C6B /* DHMediaQuestionController.m */; };
+		14B48AB717FE1ADC00E67C6B /* DHQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AAD17FE1ADC00E67C6B /* DHQuestionViewController.m */; };
+		14B48AB817FE1ADC00E67C6B /* DHSelectQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AAF17FE1ADC00E67C6B /* DHSelectQuestionController.m */; };
+		14B48AB917FE1ADC00E67C6B /* DHTextQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AB117FE1ADC00E67C6B /* DHTextQuestionController.m */; };
+		14B48ABA17FE1ADC00E67C6B /* DHTriggerQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AB317FE1ADC00E67C6B /* DHTriggerQuestionController.m */; };
+		14B48ABC17FE1B9100E67C6B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B48ABB17FE1B9100E67C6B /* AVFoundation.framework */; };
 		14BC578617B071D7009DB36A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC578517B071D7009DB36A /* UIKit.framework */; };
 		14BC578817B071D7009DB36A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC578717B071D7009DB36A /* Foundation.framework */; };
 		14BC578A17B071D7009DB36A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC578917B071D7009DB36A /* CoreGraphics.framework */; };
@@ -218,6 +230,29 @@
 		14B48A9217FDF08100E67C6B /* backgroundipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundipad.png; path = Resources/Images/Background/backgroundipad.png; sourceTree = "<group>"; };
 		14B48A9317FDF08100E67C6B /* backgroundshort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundshort.png; path = Resources/Images/Background/backgroundshort.png; sourceTree = "<group>"; };
 		14B48A9417FDF08100E67C6B /* backgroundtall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundtall.png; path = Resources/Images/Background/backgroundtall.png; sourceTree = "<group>"; };
+		14B48A9A17FE1AC800E67C6B /* DHSurveyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHSurveyViewController.h; path = Survey/DHSurveyViewController.h; sourceTree = "<group>"; };
+		14B48A9B17FE1AC800E67C6B /* DHSurveyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHSurveyViewController.m; path = Survey/DHSurveyViewController.m; sourceTree = "<group>"; };
+		14B48A9D17FE1AD400E67C6B /* DateInputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateInputTableViewCell.h; path = Survey/Extras/DateInputTableViewCell.h; sourceTree = "<group>"; };
+		14B48A9E17FE1AD400E67C6B /* DateInputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateInputTableViewCell.m; path = Survey/Extras/DateInputTableViewCell.m; sourceTree = "<group>"; };
+		14B48A9F17FE1AD400E67C6B /* DHSurveyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHSurveyLabel.h; path = Survey/Extras/DHSurveyLabel.h; sourceTree = "<group>"; };
+		14B48AA017FE1AD400E67C6B /* DHSurveyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHSurveyLabel.m; path = Survey/Extras/DHSurveyLabel.m; sourceTree = "<group>"; };
+		14B48AA117FE1AD400E67C6B /* DHSurveyLabelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHSurveyLabelController.h; path = Survey/Extras/DHSurveyLabelController.h; sourceTree = "<group>"; };
+		14B48AA217FE1AD400E67C6B /* DHSurveyLabelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHSurveyLabelController.m; path = Survey/Extras/DHSurveyLabelController.m; sourceTree = "<group>"; };
+		14B48AA617FE1ADC00E67C6B /* DHDateTimeQuestionControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHDateTimeQuestionControllerViewController.h; path = Survey/Questions/DHDateTimeQuestionControllerViewController.h; sourceTree = "<group>"; };
+		14B48AA717FE1ADC00E67C6B /* DHDateTimeQuestionControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHDateTimeQuestionControllerViewController.m; path = Survey/Questions/DHDateTimeQuestionControllerViewController.m; sourceTree = "<group>"; };
+		14B48AA817FE1ADC00E67C6B /* DHGeopointQuestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHGeopointQuestionController.h; path = Survey/Questions/DHGeopointQuestionController.h; sourceTree = "<group>"; };
+		14B48AA917FE1ADC00E67C6B /* DHGeopointQuestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHGeopointQuestionController.m; path = Survey/Questions/DHGeopointQuestionController.m; sourceTree = "<group>"; };
+		14B48AAA17FE1ADC00E67C6B /* DHMediaQuestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHMediaQuestionController.h; path = Survey/Questions/DHMediaQuestionController.h; sourceTree = "<group>"; };
+		14B48AAB17FE1ADC00E67C6B /* DHMediaQuestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHMediaQuestionController.m; path = Survey/Questions/DHMediaQuestionController.m; sourceTree = "<group>"; };
+		14B48AAC17FE1ADC00E67C6B /* DHQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHQuestionViewController.h; path = Survey/Questions/DHQuestionViewController.h; sourceTree = "<group>"; };
+		14B48AAD17FE1ADC00E67C6B /* DHQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHQuestionViewController.m; path = Survey/Questions/DHQuestionViewController.m; sourceTree = "<group>"; };
+		14B48AAE17FE1ADC00E67C6B /* DHSelectQuestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHSelectQuestionController.h; path = Survey/Questions/DHSelectQuestionController.h; sourceTree = "<group>"; };
+		14B48AAF17FE1ADC00E67C6B /* DHSelectQuestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHSelectQuestionController.m; path = Survey/Questions/DHSelectQuestionController.m; sourceTree = "<group>"; };
+		14B48AB017FE1ADC00E67C6B /* DHTextQuestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHTextQuestionController.h; path = Survey/Questions/DHTextQuestionController.h; sourceTree = "<group>"; };
+		14B48AB117FE1ADC00E67C6B /* DHTextQuestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHTextQuestionController.m; path = Survey/Questions/DHTextQuestionController.m; sourceTree = "<group>"; };
+		14B48AB217FE1ADC00E67C6B /* DHTriggerQuestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHTriggerQuestionController.h; path = Survey/Questions/DHTriggerQuestionController.h; sourceTree = "<group>"; };
+		14B48AB317FE1ADC00E67C6B /* DHTriggerQuestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHTriggerQuestionController.m; path = Survey/Questions/DHTriggerQuestionController.m; sourceTree = "<group>"; };
+		14B48ABB17FE1B9100E67C6B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		14BC578217B071D7009DB36A /* Keep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Keep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14BC578517B071D7009DB36A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		14BC578717B071D7009DB36A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -242,6 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14B48ABC17FE1B9100E67C6B /* AVFoundation.framework in Frameworks */,
 				14A0A53017FA0E2B00403110 /* AudioToolbox.framework in Frameworks */,
 				14A0A50D17FA0C0C00403110 /* CoreBluetooth.framework in Frameworks */,
 				14A0A50E17FA0C0C00403110 /* CoreLocation.framework in Frameworks */,
@@ -327,6 +363,10 @@
 		14A0A53317FA0F8800403110 /* Survey */ = {
 			isa = PBXGroup;
 			children = (
+				14B48A9A17FE1AC800E67C6B /* DHSurveyViewController.h */,
+				14B48A9B17FE1AC800E67C6B /* DHSurveyViewController.m */,
+				14B48A9917FE1ABD00E67C6B /* Questions */,
+				14B48A9817FE1AB900E67C6B /* Extras */,
 			);
 			name = Survey;
 			sourceTree = "<group>";
@@ -535,6 +575,40 @@
 			name = Background;
 			sourceTree = "<group>";
 		};
+		14B48A9817FE1AB900E67C6B /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				14B48A9D17FE1AD400E67C6B /* DateInputTableViewCell.h */,
+				14B48A9E17FE1AD400E67C6B /* DateInputTableViewCell.m */,
+				14B48A9F17FE1AD400E67C6B /* DHSurveyLabel.h */,
+				14B48AA017FE1AD400E67C6B /* DHSurveyLabel.m */,
+				14B48AA117FE1AD400E67C6B /* DHSurveyLabelController.h */,
+				14B48AA217FE1AD400E67C6B /* DHSurveyLabelController.m */,
+			);
+			name = Extras;
+			sourceTree = "<group>";
+		};
+		14B48A9917FE1ABD00E67C6B /* Questions */ = {
+			isa = PBXGroup;
+			children = (
+				14B48AA617FE1ADC00E67C6B /* DHDateTimeQuestionControllerViewController.h */,
+				14B48AA717FE1ADC00E67C6B /* DHDateTimeQuestionControllerViewController.m */,
+				14B48AA817FE1ADC00E67C6B /* DHGeopointQuestionController.h */,
+				14B48AA917FE1ADC00E67C6B /* DHGeopointQuestionController.m */,
+				14B48AAA17FE1ADC00E67C6B /* DHMediaQuestionController.h */,
+				14B48AAB17FE1ADC00E67C6B /* DHMediaQuestionController.m */,
+				14B48AAC17FE1ADC00E67C6B /* DHQuestionViewController.h */,
+				14B48AAD17FE1ADC00E67C6B /* DHQuestionViewController.m */,
+				14B48AAE17FE1ADC00E67C6B /* DHSelectQuestionController.h */,
+				14B48AAF17FE1ADC00E67C6B /* DHSelectQuestionController.m */,
+				14B48AB017FE1ADC00E67C6B /* DHTextQuestionController.h */,
+				14B48AB117FE1ADC00E67C6B /* DHTextQuestionController.m */,
+				14B48AB217FE1ADC00E67C6B /* DHTriggerQuestionController.h */,
+				14B48AB317FE1ADC00E67C6B /* DHTriggerQuestionController.m */,
+			);
+			name = Questions;
+			sourceTree = "<group>";
+		};
 		14BC577917B071D7009DB36A = {
 			isa = PBXGroup;
 			children = (
@@ -555,6 +629,7 @@
 		14BC578417B071D7009DB36A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				14B48ABB17FE1B9100E67C6B /* AVFoundation.framework */,
 				14A0A52F17FA0E2B00403110 /* AudioToolbox.framework */,
 				14A0A50717FA0C0C00403110 /* CoreBluetooth.framework */,
 				14A0A50817FA0C0C00403110 /* CoreLocation.framework */,
@@ -682,6 +757,7 @@
 				14A0A4F417FA0A2F00403110 /* KKPasscodeSettingsViewController.m in Sources */,
 				14BC579217B071D7009DB36A /* main.m in Sources */,
 				14A0A54417FA102300403110 /* StoredForm.m in Sources */,
+				14B48AB917FE1ADC00E67C6B /* DHTextQuestionController.m in Sources */,
 				14A0A57417FA2DF500403110 /* RegisterFormViewController.m in Sources */,
 				14A0A56817FA1B2400403110 /* FormSettingViewController.m in Sources */,
 				14A0A4D617FA088B00403110 /* CXMLDocument.m in Sources */,
@@ -689,8 +765,10 @@
 				14A0A55317FA164100403110 /* DHCalcUtilities.m in Sources */,
 				14A0A57817FA2E2800403110 /* AppearanceSettingsControllerViewController.m in Sources */,
 				14A0A56B17FA1B2400403110 /* ServerSelectViewController.m in Sources */,
+				14B48A9C17FE1AC800E67C6B /* DHSurveyViewController.m in Sources */,
 				14A0A4D917FA088B00403110 /* CXMLElement.m in Sources */,
 				14A0A55717FA164100403110 /* FormDownloader.m in Sources */,
+				14B48AB517FE1ADC00E67C6B /* DHGeopointQuestionController.m in Sources */,
 				14A0A52817FA0C9100403110 /* AFHTTPSessionManager.m in Sources */,
 				14A0A4DE17FA088B00403110 /* CTidy.m in Sources */,
 				14A0A4DB17FA088B00403110 /* CXMLNode_PrivateExtensions.m in Sources */,
@@ -698,12 +776,16 @@
 				14A0A56E17FA1B9F00403110 /* SavedFormsViewController.m in Sources */,
 				14A0A4F117FA0A2F00403110 /* KKKeychain.m in Sources */,
 				14A0A54117FA102300403110 /* KeepForm.m in Sources */,
+				14B48AB817FE1ADC00E67C6B /* DHSelectQuestionController.m in Sources */,
 				14A0A55517FA164100403110 /* DHMiscUtilities.m in Sources */,
+				14B48AB417FE1ADC00E67C6B /* DHDateTimeQuestionControllerViewController.m in Sources */,
 				14A0A52E17FA0C9100403110 /* AFURLSessionManager.m in Sources */,
+				14B48ABA17FE1ADC00E67C6B /* DHTriggerQuestionController.m in Sources */,
 				14A0A4D217FA088B00403110 /* CXMLDocument_CreationExtensions.m in Sources */,
 				14A0A52A17FA0C9100403110 /* AFSecurityPolicy.m in Sources */,
 				14A0A52D17FA0C9100403110 /* AFURLResponseSerialization.m in Sources */,
 				14BC579617B071D7009DB36A /* AppDelegate.m in Sources */,
+				14B48AB617FE1ADC00E67C6B /* DHMediaQuestionController.m in Sources */,
 				14A0A54317FA102300403110 /* Registrant.m in Sources */,
 				14A0A4D417FA088B00403110 /* CXHTMLDocument.m in Sources */,
 				14A0A56917FA1B2400403110 /* NewFormServerController.m in Sources */,
@@ -713,13 +795,16 @@
 				14A0A55817FA164100403110 /* XFormJSONConverter.m in Sources */,
 				14A0A52B17FA0C9100403110 /* AFURLConnectionOperation.m in Sources */,
 				14BC579F17B071D7009DB36A /* ViewController.m in Sources */,
+				14B48AA517FE1AD400E67C6B /* DHSurveyLabelController.m in Sources */,
 				14A0A52C17FA0C9100403110 /* AFURLRequestSerialization.m in Sources */,
 				14A0A4DA17FA088B00403110 /* CXMLNamespaceNode.m in Sources */,
 				14A0A4D317FA088B00403110 /* CXMLNode_CreationExtensions.m in Sources */,
+				14B48AB717FE1ADC00E67C6B /* DHQuestionViewController.m in Sources */,
 				14A0A4DC17FA088B00403110 /* CXMLNode_XPathExtensions.m in Sources */,
 				14A0A52717FA0C9100403110 /* AFHTTPRequestOperationManager.m in Sources */,
 				14A0A54017FA102300403110 /* DataManager.m in Sources */,
 				14A0A4E317FA089D00403110 /* SVProgressHUD.m in Sources */,
+				14B48AA417FE1AD400E67C6B /* DHSurveyLabel.m in Sources */,
 				14A0A4D817FA088B00403110 /* CXMLElement_ElementTreeExtensions.m in Sources */,
 				14A0A52917FA0C9100403110 /* AFNetworkReachabilityManager.m in Sources */,
 				14A0A56717FA1B2400403110 /* FormListViewController.m in Sources */,
@@ -729,6 +814,7 @@
 				14A0A4F517FA0A2F00403110 /* KKPasscodeViewController.m in Sources */,
 				14A0A55917FA164100403110 /* XPathQuery.m in Sources */,
 				14A0A4FB17FA0B3E00403110 /* UIImage+iPhone5.m in Sources */,
+				14B48AA317FE1AD400E67C6B /* DateInputTableViewCell.m in Sources */,
 				14A0A50117FA0B4800403110 /* BlockAlertView.m in Sources */,
 				14A0A55617FA164100403110 /* DHNetworkUtilities.m in Sources */,
 				14A0A55417FA164100403110 /* DHFormUtilities.m in Sources */,

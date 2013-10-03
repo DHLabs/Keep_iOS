@@ -33,13 +33,10 @@
 -(void) submitServer
 {
     //Validate fields
-
     NSString * serverName = serverNameField.text;
     if( (!serverName) || [serverName isEqualToString:@""] || [[serverName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""] ) {
-
         [NewFormServerController showMessageOnlyAlert:@"Please write in a server name"];
         return;
-
     }
 
     KeepServer *server = [[KeepServer alloc] init];
@@ -150,7 +147,6 @@
 
     self.tableView.backgroundView = imageView;
     self.tableView.backgroundColor = [UIColor clearColor];//[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundiphone"]];
-
 }
 
 #pragma mark - Table view data source
@@ -211,14 +207,11 @@
         [textField setEnabled: YES];
 
         [cell addSubview:textField];
-
     }
 
     if ([indexPath row] == 0) {
         cell.textLabel.text = @"Server Name";
-    }
-    else {
-
+    } else {
         switch (self.serverType) {
             case KeepServerType:
                 cell.textLabel.text = @"Account Name";
@@ -230,7 +223,6 @@
                 cell.textLabel.text = @"Server URL";
                 break;
         }
-
     }
 
     return cell;
