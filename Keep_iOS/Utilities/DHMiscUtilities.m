@@ -44,14 +44,14 @@
     }
     
     for( KeepForm * form in server.forms ) {
-        [FormDownloader downloadForm:form completion:^() {
+        [FormDownloader downloadXForm:form completion:^() {
             downloads--;
             if( downloads == 0 ) {
                 [SVProgressHUD dismiss];
                 [completion invoke];
                 
             }
-        } failure:^(NSError *error) {
+        } failure:^() {
             downloads--;
             if( downloads == 0 ) {
                 [SVProgressHUD dismiss];
@@ -95,10 +95,10 @@
 
     } else {
         [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeGradient];
-        [FormDownloader downloadForm:form completion:^() {
+        [FormDownloader downloadXForm:form completion:^() {
             [SVProgressHUD dismiss];
             [DHMiscUtilities showForm:form fromController:controller storedForm:storedForm];
-        } failure:^(NSError *error) {
+        } failure:^() {
             [SVProgressHUD showErrorWithStatus:@"Error"];
         }];
     }

@@ -12,6 +12,9 @@
 
 @interface DHNetworkUtilities : NSObject
 
++(void) getJSONAt:(NSString*)url success:(void(^)(id))success failure:(void(^)(void)) failure;
++(void) getStringAt:(NSString *)url success:(void (^)(NSString*))success failure:(void (^)(void))failure;
+
 +(void) downloadXML:(NSString*)url to:(NSString*)filepath success:(void(^)(void))success failure:(void(^)(void)) failure;
 
 +(void) downloadFile:(NSString*)url to:(NSString*)filepath success:(void(^)(void))success failure:(void(^)(void)) failure;

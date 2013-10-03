@@ -8,7 +8,7 @@
 
 #import "FormDataTableViewController.h"
 
-#import "AFNetworking.h"
+#import "DHNetworkUtilities.h"
 #import "SVProgressHUD.h"
 
 @interface FormDataTableViewController ()
@@ -57,38 +57,9 @@
         url = [NSURL URLWithString:downloadURL];
     }
 
-    //NSURLRequest *request = [NSURLRequest requestWithURL:url];
-
     [SVProgressHUD showWithStatus:@"Downloading" maskType:SVProgressHUDMaskTypeClear];
 
-    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
-
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-
-    [manager GET:[url absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        jsonData = [[NSMutableArray alloc] initWithCapacity:4];
-        if( self.pid ) {
-            for( NSDictionary * dict in [responseObject objectForKey:@"data"] ) {
-                if( [[[dict objectForKey:@"data"] objectForKey:@"Barcode1"] isEqualToString:self.pid] ) {
-                    [jsonData addObject:dict];
-                }
-            }
-        } else {
-            jsonData = [responseObject objectForKey:@"data"];
-        }
-
-        [self.tableView reloadData];
-        [self.tableView reloadData];
-
-        [SVProgressHUD dismiss];
-    } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
-        NSLog(@"failure to download: %@, %@", operation.responseString, error);
-        [SVProgressHUD dismiss];
-    }];
-
-    /*AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-       // NSLog(@"request: %@, JSON: %@", request, JSON);
-
+    [DHNetworkUtilities getJSONAt:[url absoluteString] success:^(id JSON) {
         jsonData = [[NSMutableArray alloc] initWithCapacity:4];
         if( self.pid ) {
             for( NSDictionary * dict in [JSON objectForKey:@"data"] ) {
@@ -104,13 +75,10 @@
         [self.tableView reloadData];
 
         [SVProgressHUD dismiss];
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-
-        NSLog(@"failure to download: %@, %@", response, error);
+    } failure:^() {
         [SVProgressHUD dismiss];
     }];
-    
-    [operation start];*/
+
 }
 
 - (void)didReceiveMemoryWarning

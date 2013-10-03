@@ -10,7 +10,7 @@
 
 #import "XMLReader.h"
 #import "KeepForm.h"
-#import "AFNetworking.h"
+#import "DHNetworkUtilities.h"
 
 @implementation DataManager
 
@@ -56,21 +56,14 @@ static DataManager* theManager;
 {
     NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/formList", server.serverURL]];
 
-    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
-
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
-    [manager GET:[url absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+    [DHNetworkUtilities getStringAt:[url absoluteString] success:^(NSString * string) {
         NSError * error;
 
         //need to escape & characters for dictionary conversion
-        NSString * xml = [[NSString alloc] initWithData:responseObject encoding:NSASCIIStringEncoding];
 
-        NSDictionary * dict = [XMLReader dictionaryForXMLString:xml error:&error];
+        NSDictionary * dict = [XMLReader dictionaryForXMLString:string error:&error];
 
         if( error ) {
-
             [failure invoke];
             return;
         }
@@ -114,7 +107,7 @@ static DataManager* theManager;
                     [server.forms addObject:form];
                 }
             }
-            
+
             if( index > 0 && index < [self.servers count] ) {
                 [self.servers insertObject:server atIndex:index];
             } else {
@@ -123,9 +116,7 @@ static DataManager* theManager;
             
             [success invoke];
         }
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
-        NSLog(@"failure to download: %@, %@", operation.responseString, error);
+    } failure:^() {
 
     }];
 

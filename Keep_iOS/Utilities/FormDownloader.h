@@ -12,6 +12,7 @@
 
 @interface FormDownloader : NSObject
 
-+(void) downloadForm:(KeepForm*)form completion:(void (^)(void)) completion failure:(void (^)(NSError * error)) failure;
+//This should only be used for xmlforms
++(void) downloadXForm:(KeepForm*)form completion:(void (^)(void)) completion failure:(void (^)(void)) failure;
 
 @end

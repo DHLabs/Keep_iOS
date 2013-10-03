@@ -9,7 +9,7 @@
 #import "Registrant.h"
 
 #import "KeepForm.h"
-#import "AFNetworking.h"
+#import "DHNetworkUtilities.h"
 
 @implementation Registrant
 
@@ -57,14 +57,10 @@
             downloadUrl = [downloadUrl stringByAppendingString:[self.registrantData objectForKey:@"Barcode1"]];
         }
 
-        AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
-
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-
-        [manager GET:downloadUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [DHNetworkUtilities getJSONAt:downloadUrl success:^(id JSON) {
             NSMutableArray * retrievedData = [[NSMutableArray alloc] init];
 
-            NSArray * jsonData = [responseObject objectForKey:@"data"];
+            NSArray * jsonData = [JSON objectForKey:@"data"];
             for( NSDictionary * dict in jsonData ) {
                 NSDictionary * data = [dict objectForKey:@"data"];
                 if( [[data objectForKey:@"Barcode1"] isEqualToString:[self.registrantData objectForKey:@"Barcode1"]] ) {
@@ -77,8 +73,7 @@
             if( numDownloads == 0 ) {
                 [completionBlock invoke];
             }
-        } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
-            NSLog(@"failure to download: %@, %@", operation.responseString, error);
+        } failure:^() {
             numDownloads--;
             if( numDownloads == 0 ) {
                 [completionBlock invoke];

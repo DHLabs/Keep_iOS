@@ -9,9 +9,45 @@
 #import "DHNetworkUtilities.h"
 
 #import "AFHTTPRequestOperation.h"
+#import "AFNetworking.h"
 #import "SVProgressHUD.h"
 
 @implementation DHNetworkUtilities
+
++(void) getJSONAt:(NSString *)url success:(void (^)(id))success failure:(void (^)(void))failure
+{
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        success(responseObject);
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
+        NSLog(@"failure to download: %@, %@", operation.responseString, error);
+        [SVProgressHUD dismiss];
+    }];
+}
+
++(void) getStringAt:(NSString *)url success:(void (^)(NSString*))success failure:(void (^)(void))failure
+{
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        NSString * string = [[NSString alloc] initWithData:responseObject encoding:NSASCIIStringEncoding];
+        success( string );
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
+        NSLog(@"failure to download: %@, %@", operation.responseString, error);
+        [failure invoke];
+    }];
+}
+
+//TODO: These likely need redoing possibly to account for AFNetworking 2.0
 
 +(void) downloadXML:(NSString*)url to:(NSString*)filepath success:(void(^)(void))success failure:(void(^)(void)) failure
 {
