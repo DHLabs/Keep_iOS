@@ -18,7 +18,7 @@
 #define defaultServer @"http://keep.distributedhealth.org/bs/sean"//@"http://formhub.org/spatno"
 //@"http://odk.distributedhealth.org/bs/sean"
 
-@interface NewFormServerController ()
+@interface NewFormServerController () <UITextFieldDelegate>
 {
     UITextField *serverNameField;
     UITextField *serverURLField;
@@ -165,6 +165,16 @@
     return 2;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if( textField == serverNameField ) {
+        [serverURLField becomeFirstResponder];
+    } else {
+        [self submitServer];
+    }
+
+    return YES;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -196,7 +206,7 @@
         textField.autocapitalizationType = UITextAutocapitalizationTypeNone; // no auto capitalization support
         textField.textAlignment = NSTextAlignmentLeft;
         textField.tag = 0;
-        //playerTextField.delegate = self;
+        textField.delegate = self;
 
         [textField setEnabled: YES];
 
