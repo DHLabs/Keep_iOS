@@ -37,6 +37,12 @@
     [SVProgressHUD showWithStatus:@"Loading" maskType:SVProgressHUDMaskTypeGradient];
 
     int __block downloads = [server.forms count];
+
+    if( downloads == 0 ) {
+        [SVProgressHUD dismiss];
+        return;
+    }
+    
     for( KeepForm * form in server.forms ) {
         [FormDownloader downloadForm:form completion:^() {
             downloads--;

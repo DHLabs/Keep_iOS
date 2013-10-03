@@ -176,7 +176,7 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 185, 30)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(150, 10, 185, 30)];
         textField.adjustsFontSizeToFitWidth = YES;
         textField.textColor = [UIColor blackColor];
         if ([indexPath row] == 0) {
@@ -189,7 +189,6 @@
             textField.placeholder = @"test_user";
             textField.keyboardType = UIKeyboardTypeDefault;
             textField.returnKeyType = UIReturnKeyDone;
-            textField.secureTextEntry = YES;
             serverURLField = textField;
         }
         textField.backgroundColor = [UIColor clearColor];
@@ -212,13 +211,13 @@
 
         switch (self.serverType) {
             case KeepServerType:
-                cell.textLabel.text = @"";
+                cell.textLabel.text = @"Account Name";
                 break;
             case FormHubServerType:
-                cell.textLabel.text = @"";
+                cell.textLabel.text = @"Account Name";
                 break;
             default:
-                cell.textLabel.text = @"";
+                cell.textLabel.text = @"Server URL";
                 break;
         }
 

@@ -121,7 +121,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NewFormServerController * newController = [[NewFormServerController alloc] initWithStyle:UITableViewStylePlain];
+    NewFormServerController * newController = [[NewFormServerController alloc] initWithStyle:UITableViewStyleGrouped];
 
     if( indexPath.row == 0 ) {
         newController.serverType = KeepServerType;

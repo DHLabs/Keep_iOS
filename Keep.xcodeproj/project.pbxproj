@@ -73,6 +73,9 @@
 		14A0A57417FA2DF500403110 /* RegisterFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A0A57117FA2DF500403110 /* RegisterFormViewController.m */; };
 		14A0A57517FA2DF500403110 /* RegistrantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A0A57317FA2DF500403110 /* RegistrantViewController.m */; };
 		14A0A57817FA2E2800403110 /* AppearanceSettingsControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A0A57717FA2E2800403110 /* AppearanceSettingsControllerViewController.m */; };
+		14B48A9517FDF08100E67C6B /* backgroundipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B48A9217FDF08100E67C6B /* backgroundipad.png */; };
+		14B48A9617FDF08100E67C6B /* backgroundshort.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B48A9317FDF08100E67C6B /* backgroundshort.png */; };
+		14B48A9717FDF08100E67C6B /* backgroundtall.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B48A9417FDF08100E67C6B /* backgroundtall.png */; };
 		14BC578617B071D7009DB36A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC578517B071D7009DB36A /* UIKit.framework */; };
 		14BC578817B071D7009DB36A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC578717B071D7009DB36A /* Foundation.framework */; };
 		14BC578A17B071D7009DB36A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC578917B071D7009DB36A /* CoreGraphics.framework */; };
@@ -212,6 +215,9 @@
 		14A0A57317FA2DF500403110 /* RegistrantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegistrantViewController.m; path = KeepUI/Register/RegistrantViewController.m; sourceTree = "<group>"; };
 		14A0A57617FA2E2800403110 /* AppearanceSettingsControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppearanceSettingsControllerViewController.h; path = KeepUI/Register/AppearanceSettingsControllerViewController.h; sourceTree = "<group>"; };
 		14A0A57717FA2E2800403110 /* AppearanceSettingsControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppearanceSettingsControllerViewController.m; path = KeepUI/Register/AppearanceSettingsControllerViewController.m; sourceTree = "<group>"; };
+		14B48A9217FDF08100E67C6B /* backgroundipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundipad.png; path = Resources/Images/Background/backgroundipad.png; sourceTree = "<group>"; };
+		14B48A9317FDF08100E67C6B /* backgroundshort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundshort.png; path = Resources/Images/Background/backgroundshort.png; sourceTree = "<group>"; };
+		14B48A9417FDF08100E67C6B /* backgroundtall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundtall.png; path = Resources/Images/Background/backgroundtall.png; sourceTree = "<group>"; };
 		14BC578217B071D7009DB36A /* Keep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Keep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14BC578517B071D7009DB36A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		14BC578717B071D7009DB36A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -296,6 +302,7 @@
 		14A0A53117FA0F1800403110 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				14B48A9017FDF07100E67C6B /* Images */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -510,6 +517,24 @@
 			name = Flurry;
 			sourceTree = "<group>";
 		};
+		14B48A9017FDF07100E67C6B /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				14B48A9117FDF07700E67C6B /* Background */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		14B48A9117FDF07700E67C6B /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				14B48A9217FDF08100E67C6B /* backgroundipad.png */,
+				14B48A9317FDF08100E67C6B /* backgroundshort.png */,
+				14B48A9417FDF08100E67C6B /* backgroundtall.png */,
+			);
+			name = Background;
+			sourceTree = "<group>";
+		};
 		14BC577917B071D7009DB36A = {
 			isa = PBXGroup;
 			children = (
@@ -635,9 +660,12 @@
 				14BC579017B071D7009DB36A /* InfoPlist.strings in Resources */,
 				14BC579817B071D7009DB36A /* Default.png in Resources */,
 				14BC579A17B071D7009DB36A /* Default@2x.png in Resources */,
+				14B48A9717FDF08100E67C6B /* backgroundtall.png in Resources */,
+				14B48A9517FDF08100E67C6B /* backgroundipad.png in Resources */,
 				14BC579C17B071D7009DB36A /* Default-568h@2x.png in Resources */,
 				14BC57A217B071D7009DB36A /* ViewController_iPhone.xib in Resources */,
 				14A0A4F217FA0A2F00403110 /* KKPasscodeLock.bundle in Resources */,
+				14B48A9617FDF08100E67C6B /* backgroundshort.png in Resources */,
 				14BC57A517B071D7009DB36A /* ViewController_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

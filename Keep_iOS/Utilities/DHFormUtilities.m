@@ -9,8 +9,7 @@
 #import "DHFormUtilities.h"
 
 #import "DataManager.h"
-#import "AFHTTPClient.h"
-#import "AFHTTPRequestOperation.h"
+#import "AFNetworking.h"
 #import "SVProgressHUD.h"
 #import "StoredForm.h"
 #import "DHCalcUtilities.h"
@@ -133,7 +132,6 @@
     return string;
 }
 
-//New method that recursively xml from nested json-like structure
 +(NSString*) buildXMLFromAnswers:(NSDictionary *)answers
 {
     NSMutableString * mutableString = [[NSMutableString alloc] init];
@@ -166,59 +164,6 @@
     }
 
     return mutableString;
-}
-
-+(NSString*) createXMLFromAnswers:(NSDictionary *)answers andTool:(DHxFormTool *)tool
-{
-    //TODO: does every tag for questions need an answer populated or only ones that were answered??
-
-    NSMutableString * xml = [NSMutableString stringWithCapacity:10];
-
-    [xml appendString:@"<?xml version='1.0'?>\n"];
-
-    NSMutableArray * questions = [NSMutableArray array];
-    NSMutableDictionary * newAnswers = [NSMutableDictionary dictionary];
-
-    //NSLog(@"questions %@", tool.questionList);
-
-    for( NSDictionary * question in tool.questionList ) {
-
-        NSString * questionPath = [question objectForKey:@"path"];
-        NSString * newPath = [questionPath substringFromIndex:1];//remove beginning '/'
-
-        id newObject = [answers objectForKey:questionPath];
-
-        if( newObject ) {
-            [questions addObject:newPath];
-            [newAnswers setObject:newObject forKey:newPath];
-        }        
-    }
-    [xml appendString:[DHFormUtilities constructXMLFromQuestions:questions forAnswers:newAnswers]];
-
-    //NSLog(@"answers %@", answers);
-    //NSLog(@"xml %@", xml);
-
-    //TODO: add id parameter in to base tag??
-
-    NSString * path = [[[tool.questionList objectAtIndex:0] objectForKey:@"path"] substringFromIndex:1];
-    NSString * formName;
-    if( [path rangeOfString:@"/"].location == NSNotFound ) {
-        formName = path;
-    } else {
-        formName =[path substringToIndex:[path rangeOfString:@"/"].location];
-    }
-
-    NSRange range = [xml rangeOfString:formName];
-
-    if( range.location == NSNotFound ) {
-        [xml appendFormat:@"<%@ id='%@'></%@>", formName, formName, formName];
-    } else {
-        [xml insertString:[NSString stringWithFormat:@" id='%@'", formName] atIndex:(range.location + range.length)];
-    }
-
-    
-
-    return xml;
 }
 
 +(NSString*) constructXMLFromQuestions:(NSArray *)questions forAnswers:(NSDictionary *)answers
@@ -287,13 +232,15 @@
     return xmlString;
 }
 
-+(void) submitForm:(ODKForm*) xform withData:(NSDictionary*) xformData tool:(DHxFormTool *)tool completion:(void (^)())completion failure:(void (^)())failure useProgress:(BOOL)useProgress
++(void) submitForm:(KeepForm*) xform withData:(NSDictionary*) xformData completion:(void (^)())completion failure:(void (^)())failure useProgress:(BOOL)useProgress
 {
     NSString* uuidstring = [[NSUserDefaults standardUserDefaults] objectForKey:@"application_UUID"];
 
     NSString * submissionURL = [NSString stringWithFormat:@"%@/submission?iphone_id=%@", xform.serverName,uuidstring];
 
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
+    //TODO: finish this
+
+    /*AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
 
     NSString * xmlString = [DHFormUtilities createXMLFromAnswers:xformData andTool:tool];
 
@@ -338,10 +285,10 @@
         [failure invoke];
     }];
 
-    [operation start];
+    [operation start];*/
 }
 
-+(void) sendStoredForms:(ODKServer*)server
++(void) sendStoredForms:(KeepServer*)server
 {
 
     NSMutableArray * storedForms;// = [DataManager instance].storedForms;
@@ -362,7 +309,7 @@
             continue;
         }
 
-        DHxFormTool * tool = [[DHxFormTool alloc] init];
+        /*DHxFormTool * tool = [[DHxFormTool alloc] init];
         NSString* filePath=[storedForm.xform.formPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.xml", storedForm.xform.formID]];
         [tool loadWithPath:filePath];
         [tool parseBindOrder];
@@ -384,7 +331,7 @@
             //keep form data if failed to upload again
 
             //therefore, do nothing
-        } useProgress:NO];
+        } useProgress:NO];*/
     }
     
 }
@@ -417,9 +364,9 @@
     return NO;
 }
 
-+(NSString *) performXPath:(NSString*)xquery onAnswers:(NSDictionary*)answers withTool:(DHxFormTool*)tool
++(NSString *) performXPath:(NSString*)xquery onAnswers:(NSDictionary*)answers
 {
-    NSString * xml = [DHFormUtilities createXMLFromAnswers:answers andTool:tool];
+    NSString * xml = [DHFormUtilities buildXMLFromAnswers:answers];
 
     NSLog(@"query: %@", xquery);
 
@@ -430,62 +377,15 @@
     return queryResult;
 }
 
-+(BOOL) evalXPath:(NSString*)eval onAnswers:(NSDictionary*)answers withTool:(DHxFormTool*)tool
++(BOOL) evalXPath:(NSString*)eval onAnswers:(NSDictionary*)answers
 {
-    NSString * xml = [DHFormUtilities createXMLFromAnswers:answers andTool:tool];
+    NSString * xml = [DHFormUtilities buildXMLFromAnswers:answers];
 
     NSLog(@"query: %@", eval);
 
     NSData * docData = [xml dataUsingEncoding:NSUTF8StringEncoding];
 
     return EvaluateXPathExpression(docData, eval);
-}
-
-
-+(BOOL) isQuestionRelevant:(NSDictionary *)question forAnswers:(NSDictionary *)answers isGroup:(BOOL)isGroup tool:(DHxFormTool*)tool
-{
-    BOOL containsRelevant = [[question allKeys] containsObject:@"relevant"];
-
-    if( !isGroup && ![question objectForKey:@"type"] ) {
-        return NO;
-    }
-
-    //question not relevant to show if metadata, will be handled on its own
-    if( [[question allKeys] containsObject:@"metadata"] ) {
-        return NO;
-    }
-
-    if ([[question objectForKey:@"type"] isEqualToString:@"calculate"] || [question objectForKey:@"calculate"]) {
-
-        NSString * calculate = [question objectForKey:@"calculate"];
-        if( calculate ) {
-            NSString * expression = [calculate stringByReplacingOccurrencesOfString:@"." withString:[question objectForKey:@"path"]];
-            NSString * calcResult = [DHFormUtilities performXPath:expression onAnswers:answers withTool:tool];
-            NSLog(@"Calc Result: %@", calcResult);
-
-            //TODO: finish this
-            
-        }
-        return NO;
-    }
-
-    /*if( [question objectForKey:@"calculate"] ) {
-        NSLog(@"got here");
-
-        //[answers setValue:[[question objectForKey:@"calculate"] stringByReplacingOccurrencesOfString:@"'" withString:@""] forKey:[question objectForKey:@"path"]];
-        //[answers setValue:@"test" forKey:[question objectForKey:@"path"]];
-        return NO;
-    }*/
-
-    if (containsRelevant) {
-
-        NSString* relevantString = [question objectForKey:@"relevant"];
-        NSString * expression = [relevantString stringByReplacingOccurrencesOfString:@"." withString:[question objectForKey:@"path"]];
-        return [DHFormUtilities evalXPath:expression onAnswers:answers withTool:tool];
-        //return YES;
-    } else {
-        return YES;
-    }
 }
 
 +(BOOL) isQuestionRequired:(NSDictionary *)question

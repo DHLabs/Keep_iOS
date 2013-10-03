@@ -52,48 +52,87 @@ static DataManager* theManager;
 	NSLog(@"Time to save database:%f seconds", -[startTime timeIntervalSinceNow] );
 }
 
--(void) addServer:(ODKServer *)server atIndex:(NSInteger)index success:(void (^)(void))success failure:(void (^)(void))failure
+-(void) addServer:(KeepServer *)server atIndex:(NSInteger)index success:(void (^)(void))success failure:(void (^)(void))failure
 {
-    indexToAdd = index;
+    NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/formList", server.serverURL]];
 
-    newServer = server;
-    addFailure = failure;
-    addSuccess = success;
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
 
-    NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/formList", newServer.serverURL]];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFXMLRequestOperation *operation = [AFXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *XMLParser) {
+    [manager GET:[url absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
-        xml = @"";
-        XMLParser.delegate = self;
-        [XMLParser parse];        
+        NSError * error;
 
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *XMLParser) {
+        //need to escape & characters for dictionary conversion
+        NSString * xml = [[NSString alloc] initWithData:responseObject encoding:NSASCIIStringEncoding];
 
-        NSLog(@"failure: %@", error);
-        //TODO: alert that something went wrong
+        NSDictionary * dict = [XMLReader dictionaryForXMLString:xml error:&error];
 
-        [addFailure invoke];
-        
+        if( error ) {
+
+            [failure invoke];
+            return;
+        }
+
+        server.forms = [[NSMutableArray alloc] init];
+
+        NSDictionary * xformsDict = [dict objectForKey:@"xforms"];
+
+        if( !xformsDict || [xformsDict isEqual:[NSNull null]] ) {
+            //not a proper xforms server
+            [failure invoke];
+
+        } else {
+            id xforms = [xformsDict objectForKey:@"xform"];
+
+            if( [xforms isKindOfClass:[NSDictionary class]] ) {
+                KeepForm * form = [[KeepForm alloc] init];
+                form.description = [xforms objectForKey:@"descriptionText"];
+                form.downloadURL = [xforms objectForKey:@"downloadUrl"];
+                form.manifestURL = [xforms objectForKey:@"manifestUrl"];
+                form.name = [xforms objectForKey:@"name"];
+                form.formID = [xforms objectForKey:@"formID"];
+                form.formType = [xforms objectForKey:@"type"];
+                form.serverName = [NSString stringWithString:server.serverURL];
+
+                [server.forms addObject:form];
+            } else {
+                for( NSDictionary * xform in xforms ) {
+
+                    //NSLog(@"formL %@", xform);
+
+                    KeepForm * form = [[KeepForm alloc] init];
+                    form.description = [xform objectForKey:@"descriptionText"];
+                    form.downloadURL = [xform objectForKey:@"downloadUrl"];
+                    form.manifestURL = [xform objectForKey:@"manifestUrl"];
+                    form.name = [xform objectForKey:@"name"];
+                    form.formID = [xform objectForKey:@"formID"];
+                    form.formType = [xform objectForKey:@"type"];
+                    form.serverName = [NSString stringWithString:server.serverURL];
+
+                    [server.forms addObject:form];
+                }
+            }
+            
+            if( index > 0 && index < [self.servers count] ) {
+                [self.servers insertObject:server atIndex:index];
+            } else {
+                [self.servers addObject:server];
+            }
+            
+            [success invoke];
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
+        NSLog(@"failure to download: %@, %@", operation.responseString, error);
+
     }];
-    
-    [operation start];
+
 }
 
--(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    xml = [xml stringByAppendingFormat:@"<%@>", elementName];
-}
 
--(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    xml = [xml stringByAppendingFormat:@"</%@>", elementName];
-}
-
--(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    xml = [xml stringByAppendingString:string];
-}
-
--(void) parserDidEndDocument:(NSXMLParser *)parser
+/*-(void) parserDidEndDocument:(NSXMLParser *)parser
 {
     NSError * error;
 
@@ -156,7 +195,7 @@ static DataManager* theManager;
         
         [addSuccess invoke];
     }
-}
+}*/
 
 - (NSString *)databasePath
 {
@@ -203,7 +242,7 @@ static DataManager* theManager;
 
 -(KeepServer*) serverForName:(NSString *)serverName
 {
-    for( ODKServer * server in self.servers ) {
+    for( KeepServer * server in self.servers ) {
         if( [server.serverURL isEqualToString:serverName] ) {
             return server;
         }

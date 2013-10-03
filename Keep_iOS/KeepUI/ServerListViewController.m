@@ -60,6 +60,7 @@
         self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundiphone"]];
     } else {
         self.view.backgroundColor = [UIColor whiteColor];
+        self.tableView.backgroundColor = [UIColor whiteColor];
     }
 
     if( [[DataManager instance].servers count] == 0 ) {

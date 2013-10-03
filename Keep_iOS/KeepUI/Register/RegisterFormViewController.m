@@ -366,13 +366,15 @@
     currentPage++;
 
     NSURL *url = [self buildDownloadUrl];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
     [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeGradient];
 
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
 
-        NSArray * jsonData = [JSON objectForKey:@"data"];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+
+    [manager GET:[url absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray * jsonData = [responseObject objectForKey:@"data"];
         for( NSDictionary * dict in jsonData ) {
             Registrant * reg = [[Registrant alloc] init];
             reg.registrantData = [dict objectForKey:@"data"];
@@ -381,19 +383,16 @@
         }
 
         [self sortData];
-    
+
         [self.tableView reloadData];
 
         [SVProgressHUD dismiss];
-
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-
-        NSLog(@"failure to download: %@, %@", response, error);
+    } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
+        NSLog(@"failure to download: %@, %@", operation.responseString, error);
 
         [SVProgressHUD dismiss];
     }];
-    
-    [operation start];
+
 }
 
 -(void) sortData

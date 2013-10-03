@@ -10,13 +10,8 @@
 
 #import "KeepServer.h"
 
-@interface DataManager : NSObject<NSXMLParserDelegate> {
-    NSString * xml;
-    KeepServer * newServer;
-    NSInteger indexToAdd;
-    void (^addSuccess)(void);
-    void (^addFailure)(void);
-}
+@interface DataManager : NSObject<NSXMLParserDelegate>
+
 
 @property (nonatomic, strong) NSMutableArray * servers;
 @property (nonatomic, strong) NSMutableArray * storedForms;
