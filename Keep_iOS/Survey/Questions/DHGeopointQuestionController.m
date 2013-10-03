@@ -8,6 +8,8 @@
 
 #import "DHGeopointQuestionController.h"
 
+#import <CoreLocation/CoreLocation.h>
+
 @interface DHGeopointQuestionController ()<CLLocationManagerDelegate>
 {
     CLLocationManager * locationManager;

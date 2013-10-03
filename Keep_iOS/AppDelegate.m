@@ -22,6 +22,7 @@
     [Flurry startSession:@"NCPK87RPVM67GX25M9PX"];
     [Flurry setCrashReportingEnabled:YES];
 
+    [[DataManager instance] loadDataFromFilesystem];
 
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSObject * object = [defaults objectForKey:@"application_UUID"];

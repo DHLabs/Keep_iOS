@@ -8,9 +8,7 @@
 
 #import "DHSurveyViewController.h"
 
-#import "DHxFormTool.h"
 #import "DHFormUtilities.h"
-#import "ODKForm.h"
 #import "DHQuestionViewController.h"
 #import "DHTriggerQuestionController.h"
 #import "DHSelectQuestionController.h"
@@ -21,6 +19,7 @@
 #import "DataManager.h"
 #import "DHMediaQuestionController.h"
 #import "DHDateTimeQuestionControllerViewController.h"
+#import <CoreLocation/CoreLocation.h>
 //#import "DHBarcodeQuestionController.h"
 
 @interface DHSurveyViewController ()<CLLocationManagerDelegate, QuestionViewDelegate>
@@ -28,10 +27,8 @@
     NSString * currentQuestionName;
     NSDictionary * currentQuestionDict;
 
-    int currentQuestion;
     UIView * currentQuestionView;
     DHQuestionViewController * currentQuestionController;
-    DHxFormTool * tool;
     BOOL hasTranslations;
     NSMutableDictionary * answers;
     UIBarButtonItem * leftBarButton;
@@ -40,6 +37,9 @@
     NSString * translation;
     CLLocationManager * locationManager;
 }
+
+-(NSDictionary*) getPreviousQuestion;
+-(NSDictionary*) getNextQuestion;
 
 -(void) presentPreviousQuestion;
 -(void) presentNextQuestion;
@@ -157,7 +157,7 @@
 {
     //TODO: handle metadata at end like phone id and End time
 
-    for( NSDictionary * question in tool.questionList ) {
+    /*for( NSDictionary * question in tool.questionList ) {
         NSString * meta = [question objectForKey:@"metadata"];
         if( meta ) {
 
@@ -181,28 +181,29 @@
             //phonenumber
 
         }
-    }
+    }*/
 }
 
 -(void) handleStartMetadata
 {
-    for( NSDictionary * question in tool.questionList ) {
+    //TODO: finish this
+
+    /*for( NSDictionary * question in tool.questionList ) {
         NSString * meta = [question objectForKey:@"metadata"];
         if( meta && [meta isEqualToString:@"start"] ) {
 
             [answers setObject:[NSDate date] forKey:[question objectForKey:@"path"]];
         }
-    }
+    }*/
 }
 
 -(void) finishSurvey
 {
-
     [self handleEndMetadata];
 
     self.form.progress = nil;
 
-    [DHFormUtilities submitForm:self.form withData:answers tool:tool completion:^(void) {
+    [DHFormUtilities submitForm:self.form withData:answers completion:^(void) {
         [SVProgressHUD showSuccessWithStatus:@"Done"];
 
         if( self.storedForm ) {
@@ -250,7 +251,7 @@
 {
     NSString * questionType = [question objectForKey:@"type"];
 
-    if( [DHFormUtilities isQuestionRelevant:question forAnswers:answers isGroup:NO tool:tool] ) {
+    if( [DHFormUtilities isQuestionRelevant:question forAnswers:answers isGroup:NO] ) {
 
         if( [questionType isEqualToString:@"geopoint"] ) {
 
@@ -280,7 +281,7 @@
             //get question for group
             for( NSDictionary * quest in tool.questionList ) {
                 if( [[quest objectForKey:@"path"] isEqualToString:groupPath] ) {
-                    if( ![DHFormUtilities isQuestionRelevant:quest forAnswers:answers isGroup:YES tool:tool] ) {
+                    if( ![DHFormUtilities isQuestionRelevant:quest forAnswers:answers isGroup:YES] ) {
                         return NO;
                     }
                     break;

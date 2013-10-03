@@ -76,7 +76,6 @@
 		14B48A9517FDF08100E67C6B /* backgroundipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B48A9217FDF08100E67C6B /* backgroundipad.png */; };
 		14B48A9617FDF08100E67C6B /* backgroundshort.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B48A9317FDF08100E67C6B /* backgroundshort.png */; };
 		14B48A9717FDF08100E67C6B /* backgroundtall.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B48A9417FDF08100E67C6B /* backgroundtall.png */; };
-		14B48A9C17FE1AC800E67C6B /* DHSurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48A9B17FE1AC800E67C6B /* DHSurveyViewController.m */; };
 		14B48AA317FE1AD400E67C6B /* DateInputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48A9E17FE1AD400E67C6B /* DateInputTableViewCell.m */; };
 		14B48AA417FE1AD400E67C6B /* DHSurveyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AA017FE1AD400E67C6B /* DHSurveyLabel.m */; };
 		14B48AA517FE1AD400E67C6B /* DHSurveyLabelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AA217FE1AD400E67C6B /* DHSurveyLabelController.m */; };
@@ -88,6 +87,7 @@
 		14B48AB917FE1ADC00E67C6B /* DHTextQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AB117FE1ADC00E67C6B /* DHTextQuestionController.m */; };
 		14B48ABA17FE1ADC00E67C6B /* DHTriggerQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B48AB317FE1ADC00E67C6B /* DHTriggerQuestionController.m */; };
 		14B48ABC17FE1B9100E67C6B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B48ABB17FE1B9100E67C6B /* AVFoundation.framework */; };
+		14B48ABE17FE272900E67C6B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B48ABD17FE272900E67C6B /* MediaPlayer.framework */; };
 		14BC578617B071D7009DB36A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC578517B071D7009DB36A /* UIKit.framework */; };
 		14BC578817B071D7009DB36A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC578717B071D7009DB36A /* Foundation.framework */; };
 		14BC578A17B071D7009DB36A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC578917B071D7009DB36A /* CoreGraphics.framework */; };
@@ -253,6 +253,7 @@
 		14B48AB217FE1ADC00E67C6B /* DHTriggerQuestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DHTriggerQuestionController.h; path = Survey/Questions/DHTriggerQuestionController.h; sourceTree = "<group>"; };
 		14B48AB317FE1ADC00E67C6B /* DHTriggerQuestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DHTriggerQuestionController.m; path = Survey/Questions/DHTriggerQuestionController.m; sourceTree = "<group>"; };
 		14B48ABB17FE1B9100E67C6B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		14B48ABD17FE272900E67C6B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		14BC578217B071D7009DB36A /* Keep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Keep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14BC578517B071D7009DB36A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		14BC578717B071D7009DB36A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -277,6 +278,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14B48ABE17FE272900E67C6B /* MediaPlayer.framework in Frameworks */,
 				14B48ABC17FE1B9100E67C6B /* AVFoundation.framework in Frameworks */,
 				14A0A53017FA0E2B00403110 /* AudioToolbox.framework in Frameworks */,
 				14A0A50D17FA0C0C00403110 /* CoreBluetooth.framework in Frameworks */,
@@ -629,6 +631,7 @@
 		14BC578417B071D7009DB36A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				14B48ABD17FE272900E67C6B /* MediaPlayer.framework */,
 				14B48ABB17FE1B9100E67C6B /* AVFoundation.framework */,
 				14A0A52F17FA0E2B00403110 /* AudioToolbox.framework */,
 				14A0A50717FA0C0C00403110 /* CoreBluetooth.framework */,
@@ -765,7 +768,6 @@
 				14A0A55317FA164100403110 /* DHCalcUtilities.m in Sources */,
 				14A0A57817FA2E2800403110 /* AppearanceSettingsControllerViewController.m in Sources */,
 				14A0A56B17FA1B2400403110 /* ServerSelectViewController.m in Sources */,
-				14B48A9C17FE1AC800E67C6B /* DHSurveyViewController.m in Sources */,
 				14A0A4D917FA088B00403110 /* CXMLElement.m in Sources */,
 				14A0A55717FA164100403110 /* FormDownloader.m in Sources */,
 				14B48AB517FE1ADC00E67C6B /* DHGeopointQuestionController.m in Sources */,

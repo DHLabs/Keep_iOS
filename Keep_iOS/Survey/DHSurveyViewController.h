@@ -8,19 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ODKForm.h"
+#import "KeepForm.h"
 #import "StoredForm.h"
 
 @protocol DHSurveyDelegate <NSObject>
 
 -(void) surveyDidCancel;
--(void) survey:(ODKForm*) survey didFinishWithAnswers:(NSDictionary*)answers;
+-(void) survey:(KeepForm*) survey didFinishWithAnswers:(NSDictionary*)answers;
 
 @end
 
 @interface DHSurveyViewController : UIViewController
 
-@property (nonatomic, strong) ODKForm * form;
+@property (nonatomic, strong) KeepForm * form;
 @property (nonatomic, strong) StoredForm * storedForm;
 @property (nonatomic, assign) id<DHSurveyDelegate> delegate;
 
