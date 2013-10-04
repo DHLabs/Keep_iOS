@@ -24,6 +24,7 @@
 
 +(NSString*) constructXMLFromQuestions:(NSArray*)questions forAnswers:(NSDictionary*) answers;
 
++(void) submitData:(NSDictionary*) xformData to:(NSString*)submissionURL success:(void (^)())success failure:(void (^)()) failure useProgress:(BOOL) useProgress;
 +(void) submitForm:(KeepForm*) xform withData:(NSDictionary*) xformData completion:( void (^)() ) completion failure:(void (^)()) failure useProgress:(BOOL) useProgress;
 
 +(void) sendStoredForms:(KeepServer*)server;

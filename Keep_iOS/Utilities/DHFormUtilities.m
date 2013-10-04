@@ -238,15 +238,15 @@
 
     NSString * submissionURL = [NSString stringWithFormat:@"%@/submission?iphone_id=%@", xform.serverName,uuidstring];
 
-    //TODO: finish this
+    if( useProgress ) {
+        [SVProgressHUD showWithStatus:@"Submitting" maskType:SVProgressHUDMaskTypeGradient];
+    }
 
-    /*AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 
-    NSString * xmlString = [DHFormUtilities createXMLFromAnswers:xformData andTool:tool];
+    [manager POST:submissionURL parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 
-    //NSLog(@"xml to submit: %@", xmlString);
-
-    NSURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:submissionURL parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
+        NSString * xmlString = [DHFormUtilities buildXMLFromAnswers:xformData];
 
         [formData appendPartWithFileData:[xmlString dataUsingEncoding:NSUTF8StringEncoding]
                                     name:@"xml_submission_file" fileName:@"xml_submission_file" mimeType:@"application/octet-stream"];
@@ -262,30 +262,19 @@
                 if( [fileExtension isEqualToString:@"mov"] ) {
                     mimeType = @"video/quicktime";
                 }
-
-                [formData appendPartWithFileData:[NSData dataWithContentsOfURL:(NSURL*)answer] name:filename fileName:filename mimeType:mimeType];
+                [formData appendPartWithFileURL:answer name:filename fileName:filename mimeType:mimeType error:nil];
+                //[formData appendPartWithFileData:[NSData dataWithContentsOfURL:(NSURL*)answer] name:filename fileName:filename mimeType:mimeType];
             }
         }
-    }];
 
-    if( useProgress ) {
-        [SVProgressHUD showWithStatus:@"Submitting" maskType:SVProgressHUDMaskTypeGradient];
-    }
-
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-        NSLog(@"success: %@", operation.responseString);
-
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [SVProgressHUD dismiss];
         [completion invoke];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"operation url: %@", operation.request.URL);
-        NSLog(@"error: %@, %@",  operation.responseString, error);
-
+        [SVProgressHUD dismiss];
         [failure invoke];
     }];
 
-    [operation start];*/
 }
 
 +(void) sendStoredForms:(KeepServer*)server

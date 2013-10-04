@@ -39,37 +39,65 @@
 
     NSMutableDictionary * jsonForm = [[NSMutableDictionary alloc] init];
     NSMutableArray * children = [[NSMutableArray alloc] init];
+    NSMutableDictionary * choices = [[NSMutableDictionary alloc] init];
 
     CXMLDocument * xmlDocument = [[CXMLDocument alloc] initWithXMLString:xml options:CXMLDocumentTidyHTML error:&error];
+
+    if( error ) {
+        [jsonForm setValue:@"" forKey:@"children"];
+        NSLog(@"unable to parse xml");
+        return jsonForm;
+    }
 
     NSString * realString = [NSString stringWithFormat:@"<xform>%@%@</xform>",[[[xmlDocument childAtIndex:0] childAtIndex:1] XMLString],[[[xmlDocument childAtIndex:0] childAtIndex:3] XMLString]];
 
     realString = [realString stringByReplacingOccurrencesOfString:@"<h:" withString:@"<"];
     realString = [realString stringByReplacingOccurrencesOfString:@"</h:" withString:@"</"];
+    realString = [realString stringByReplacingOccurrencesOfString:@"jr:" withString:@""];
 
     CXMLDocument * fullDoc = [[CXMLDocument alloc] initWithXMLString:realString options:0 error:nil];
-
-    NSArray * instance = [fullDoc nodesForXPath:@"//instance" error:nil];
-
-    for( CXMLElement *node in instance ) {
-        for( CXMLElement * child in [node childAtIndex:1].children) {
-            if( [child.name isEqualToString:@"text"] ) {
-                continue;
-            }
-
-            NSString * questionPath = [NSString stringWithFormat:@"/%@", [node childAtIndex:1].name];
-            [XFormJSONConverter parseElement:child into:children fromDoc:fullDoc path:questionPath];
-        }
-    }
 
     NSError * nameError;
     NSArray* nodes = [fullDoc nodesForXPath:@"//head/title" error:&nameError];
 
     [jsonForm setValue:[[nodes objectAtIndex:0] stringValue] forKey:@"name"];
 
+    NSArray * instance = [fullDoc nodesForXPath:@"//instance" error:nil];
+
+    for( CXMLElement *node in instance ) {
+
+        CXMLNode * idNode = [node attributeForName:@"id"];
+
+        if( idNode ) {
+            //this is a list of choices to parse
+            NSMutableArray * array = [[NSMutableArray alloc] init];
+            [XFormJSONConverter parseChoiceInstance:node into:array fromDoc:fullDoc];
+            [choices setValue:array forKey:[idNode stringValue]];
+        } else {
+            //this is the real instance
+            for( CXMLElement * child in [node childAtIndex:1].children) {
+                if( [child.name isEqualToString:@"text"] ) {
+                    continue;
+                }
+
+                NSString * questionPath = [NSString stringWithFormat:@"/%@", [node childAtIndex:1].name];
+                [XFormJSONConverter parseElement:child into:children fromDoc:fullDoc path:questionPath];
+            }
+        }
+    }
+
     [jsonForm setValue:children forKey:@"children"];
     
     return jsonForm;
+}
+
++(void) parseChoiceInstance:(CXMLElement*) instance into:(NSMutableArray*)array fromDoc:(CXMLDocument*) document
+{
+    //TODO:
+
+    //get the root element
+
+    //iterate through item elements
 }
 
 +(void) parseElement:(CXMLElement *)element into:(NSMutableArray*) array fromDoc:(CXMLDocument*) document path:(NSString*) questionPath
@@ -84,7 +112,7 @@
         NSMutableArray * groupChildren = [[NSMutableArray alloc] init];
         for( CXMLElement * child in [element children] ) {
             if( [child.name isEqualToString:@"text"] ) {
-                NSLog(@"text");
+                //NSLog(@"text");
                 continue;
             }
 
@@ -101,7 +129,7 @@
 +(void) parseQuestion:(CXMLElement*) element into:(NSMutableDictionary*)questionDict fromDoc:(CXMLDocument*) document withPath:(NSString*) path
 {
     NSString * questionPath = [path stringByAppendingFormat:@"/%@", element.name];
-    NSLog(@"question path: %@", questionPath);
+    //NSLog(@"question path: %@", questionPath);
 
     [questionDict setValue:questionPath forKey:@"path"];
 
@@ -151,6 +179,8 @@
     if( defaultValue && ![defaultValue isEqualToString:@""] ) {
         [questionDict setValue:defaultValue forKey:@"default"];
     }
+
+    //TODO: choice_filter and itemset
     
     //bind element
     NSArray * bindArray = [document nodesForXPath:[NSString stringWithFormat:@"//bind[@nodeset='%@']", questionPath] error:nil];
@@ -272,7 +302,7 @@
             if( itext ) {
 
                 NSMutableDictionary * langDict = [[NSMutableDictionary alloc] init];
-                NSString * xpath = [NSString stringWithFormat:@"//text[@id='%@'", [itext stringValue]];
+                NSString * xpath = [NSString stringWithFormat:@"//text[@id=\"%@\"]", [itext stringValue]];
                 NSArray * languages = [[element rootDocument] nodesForXPath:xpath error:nil];
                 for( CXMLElement * language in languages ) {
                     
